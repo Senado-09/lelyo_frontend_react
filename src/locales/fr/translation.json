@@ -1,0 +1,240 @@
+{
+    "user": "Utilisateur",
+    "logout": "Se déconnecter",
+    "search": "Rechercher...",
+    "toggle_menu": "Ouvrir le menu",
+    "addProperty": {
+    "namePlaceholder": "Nom du bien",
+    "addressPlaceholder": "Adresse",
+    "descriptionPlaceholder": "Description",
+    "submitButton": "Ajouter un bien",
+    "success": "✅ Bien ajouté avec succès !",
+    "errors": {
+      "name": "Le nom est requis.",
+      "address": "L'adresse est requise.",
+      "upload": "Erreur lors de l'upload de l'image",
+      "submit": "Erreur lors de l'ajout"
+    }
+  },
+  "propertiesList": {
+    "errors": {
+      "fetch": "Erreur lors du chargement des biens",
+      "delete": "Erreur lors de la suppression"
+    },
+    "successDelete": "Bien supprimé",
+    "confirmDelete": "Voulez-vous vraiment supprimer le bien \"{{name}}\" ?",
+    "delete": "Supprimer"
+  },
+  "properties": {
+    "title": "Biens",
+    "tabs": {
+      "list": "Liste des biens",
+      "add": "Ajouter un bien"
+    }
+  },
+  "dashboard": {
+    "title": "Tableau de bord",
+    "loading": "Chargement...",
+    "errors": {
+      "load_dashboard": "Erreur lors du chargement du tableau de bord",
+      "load_alerts": "Erreur chargement des alertes",
+      "load_week": "Erreur chargement des données hebdo"
+    },
+    "cards": {
+      "properties": {
+        "title": "Biens",
+        "link": "Voir les biens"
+      },
+      "today_reservations": {
+        "title": "Réservations aujourd’hui",
+        "link": "Voir le calendrier"
+      },
+      "today_tasks": {
+        "title": "Tâches à faire aujourd’hui",
+        "link": "Voir les tâches"
+      }
+    },
+    "chart": {
+      "title": "Réservations sur les 7 derniers jours"
+    },
+    "alerts": {
+      "title": "Alertes",
+      "late_tasks": {
+        "title": "Tâches en retard",
+        "suffix": "prévue le {{date}} (bien #{{id}})",
+        "empty": "✅ Aucune tâche en retard"
+      },
+      "tomorrow": {
+        "title": "Réservations demain",
+        "suffix": "du {{start}} au {{end}} (bien #{{id}})",
+        "empty": "🎉 Aucune réservation demain"
+      }
+    }
+  },
+  "calendar": {
+    "title": "Calendrier des réservations",
+    "new_reservation": "Nouvelle réservation",
+    "details": {
+      "title": "Détails de la réservation",
+      "guest": "Client",
+      "start": "Début",
+      "end": "Fin",
+      "property": "Bien"
+    },
+    "form": {
+      "add": "Ajouter une réservation",
+      "edit": "Modifier la réservation",
+      "guest_name": "Nom du client",
+      "start_date": "Date de début",
+      "end_date": "Date de fin",
+      "select_property": "Sélectionner un bien",
+      "cancel": "Annuler",
+      "submit_add": "Valider",
+      "submit_edit": "Modifier"
+    },
+    "actions": {
+      "close": "Fermer",
+      "edit": "Modifier",
+      "delete": "Supprimer"
+    },
+    "alerts": {
+      "delete_confirm": "Confirmer la suppression de cette réservation ?",
+      "success_delete": "Réservation supprimée",
+      "error_delete": "Erreur lors de la suppression",
+      "confirm_update": "Confirmer la modification ?",
+      "confirm_create": "Confirmer l'ajout de la réservation ?",
+      "success_create": "Réservation ajoutée !",
+      "success_update": "Réservation modifiée !",
+      "error_save": "Erreur lors de l'enregistrement",
+      "error_load_reservations": "Erreur chargement des réservations",
+      "error_load_properties": "Erreur chargement des biens"
+    }
+  },
+  "tasks": {
+    "title": "Tâches par bien",
+    "filter": {
+      "label": "Filtrer :",
+      "all": "Tous les biens"
+    },
+    "add_button": "Ajouter une tâche",
+    "table": {
+      "date": "Date",
+      "title": "Titre",
+      "description": "Description",
+      "status": "Statut",
+      "property": "Bien",
+      "actions": "Action"
+    },
+    "status": {
+      "done": "Terminée",
+      "pending": "En cours",
+      "tooltip": {
+        "complete": "Cliquer pour marquer terminé",
+        "revert": "Cliquer pour marquer en cours"
+      }
+    },
+    "actions": {
+      "edit": "Modifier",
+      "delete": "Supprimer"
+    },
+    "modal": {
+      "add": "Ajouter une tâche",
+      "edit": "Modifier la tâche"
+    },
+    "form": {
+      "title": "Titre",
+      "description": "Description",
+      "select_property": "Sélectionner un bien",
+      "cancel": "Annuler",
+      "submit_add": "Valider",
+      "submit_edit": "Modifier"
+    },
+    "alerts": {
+      "load_error": "Erreur chargement des tâches",
+      "load_properties_error": "Erreur chargement des biens",
+      "confirm_create": "Confirmer l'ajout de la tâche ?",
+      "confirm_update": "Confirmer la modification ?",
+      "confirm_delete": "Confirmer la suppression de cette tâche ?",
+      "success_create": "Tâche ajoutée",
+      "success_update": "Tâche modifiée",
+      "success_delete": "Tâche supprimée",
+      "success_toggle": "Tâche mise à jour",
+      "delete_error": "Erreur lors de la suppression",
+      "save_error": "Erreur lors de l'enregistrement",
+      "toggle_error": "Erreur lors de la mise à jour"
+    }
+  },
+  "stats": {
+    "title": "Statistiques générales",
+    "loading": "Chargement...",
+    "filter": {
+      "all": "Tous les biens"
+    },
+    "cards": {
+      "reservations": "Réservations",
+      "tasks": {
+        "title": "Tâches",
+        "completed": "Terminées",
+        "pending": "À faire",
+        "total": "Total"
+      },
+      "occupancy": "Taux d'occupation"
+    },
+    "pie": {
+      "title": "Répartition des tâches",
+      "pending": "À faire",
+      "completed": "Terminées"
+    },
+    "line": {
+      "title": "Évolution des réservations (30 jours)"
+    },
+    "alerts": {
+      "load_error": "Erreur chargement des statistiques",
+      "load_properties_error": "Erreur chargement des biens",
+      "evolution_error": "Erreur chargement de l'évolution des réservations"
+    }
+  },
+  "sidebar": {
+    "menu": "Menu",
+    "dashboard": "Tableau de bord",
+    "properties": "Biens",
+    "calendar": "Calendrier",
+    "tasks": "Tâches",
+    "stats": "Statistiques"
+  },
+  "login": {
+    "title": "Connexion",
+    "subtitle": "Connectez-vous pour accéder à votre tableau de bord.",
+    "welcome": "Bienvenue sur Lelyo",
+    "description": "Connectez-vous pour gérer vos biens, vos tâches et vos réservations.",
+    "email": "Email",
+    "password": "Mot de passe",
+    "submit": "Se connecter",
+    "no_account": "Pas encore de compte ?",
+    "create_account": "Créer un compte",
+    "error": "Identifiants incorrects",
+    "error_credentials": "Email ou mot de passe incorrect.",
+    "success": "Connexion réussie !"
+  },
+  "register": {
+    "title": "Inscription",
+    "welcome": "Créer un compte Lelyo",
+    "description": "Gagnez du temps et gardez le contrôle de vos logements grâce à notre plateforme tout-en-un.",
+    "subtitle": "Gérez vos biens facilement où que vous soyez.",
+    "full_name": "Nom complet",
+    "phone": "Téléphone",
+    "email": "Email",
+    "password": "Mot de passe",
+    "confirm_password": "Confirmer le mot de passe",
+    "submit": "Créer un compte",
+    "already_account": "Déjà inscrit ?",
+    "login": "Se connecter",
+    "success": "Inscription réussie !",
+    "errors": {
+      "password_mismatch": "Les mots de passe ne correspondent pas.",
+      "server": "Erreur lors de l’inscription",
+      "generic": "Une erreur est survenue. Veuillez réessayer."
+    }
+  }
+  }
+  

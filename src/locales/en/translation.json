@@ -1,0 +1,240 @@
+{
+    "user": "User",
+    "logout": "Log out",
+    "search": "Search...",
+    "toggle_menu": "Open menu",
+    "addProperty": {
+      "namePlaceholder": "Property name",
+      "addressPlaceholder": "Address",
+      "descriptionPlaceholder": "Description",
+      "submitButton": "Add property",
+      "success": "✅ Property added successfully!",
+      "errors": {
+        "name": "Name is required.",
+        "address": "Address is required.",
+        "upload": "Error during image upload",
+        "submit": "Error during submission"
+      }
+    },
+    "propertiesList": {
+      "errors": {
+        "fetch": "Error while loading properties",
+        "delete": "Error while deleting"
+      },
+      "successDelete": "Property deleted",
+      "confirmDelete": "Do you really want to delete the property \"{{name}}\"?",
+      "delete": "Delete"
+    },
+    "properties": {
+      "title": "Properties",
+      "tabs": {
+        "list": "Properties List",
+        "add": "Add Property"
+      }
+    },
+    "dashboard": {
+      "title": "Dashboard",
+      "loading": "Loading...",
+      "errors": {
+        "load_dashboard": "Error loading dashboard",
+        "load_alerts": "Error loading alerts",
+        "load_week": "Error loading weekly data"
+      },
+      "cards": {
+        "properties": {
+          "title": "Properties",
+          "link": "View properties"
+        },
+        "today_reservations": {
+          "title": "Today’s Reservations",
+          "link": "View calendar"
+        },
+        "today_tasks": {
+          "title": "Today’s Tasks",
+          "link": "View tasks"
+        }
+      },
+      "chart": {
+        "title": "Reservations over the last 7 days"
+      },
+      "alerts": {
+        "title": "Alerts",
+        "late_tasks": {
+          "title": "Late Tasks",
+          "suffix": "scheduled for {{date}} (property #{{id}})",
+          "empty": "✅ No late tasks"
+        },
+        "tomorrow": {
+          "title": "Tomorrow’s Reservations",
+          "suffix": "from {{start}} to {{end}} (property #{{id}})",
+          "empty": "🎉 No reservations tomorrow"
+        }
+      }
+    },
+    "calendar": {
+    "title": "Reservation Calendar",
+    "new_reservation": "New Reservation",
+    "details": {
+      "title": "Reservation Details",
+      "guest": "Guest",
+      "start": "Start",
+      "end": "End",
+      "property": "Property"
+    },
+    "form": {
+      "add": "Add a Reservation",
+      "edit": "Edit Reservation",
+      "guest_name": "Guest Name",
+      "start_date": "Start Date",
+      "end_date": "End Date",
+      "select_property": "Select a Property",
+      "cancel": "Cancel",
+      "submit_add": "Submit",
+      "submit_edit": "Update"
+    },
+    "actions": {
+      "close": "Close",
+      "edit": "Edit",
+      "delete": "Delete"
+    },
+    "alerts": {
+      "delete_confirm": "Confirm deletion of this reservation?",
+      "success_delete": "Reservation deleted",
+      "error_delete": "Error while deleting",
+      "confirm_update": "Confirm update?",
+      "confirm_create": "Confirm reservation creation?",
+      "success_create": "Reservation added!",
+      "success_update": "Reservation updated!",
+      "error_save": "Error while saving",
+      "error_load_reservations": "Error loading reservations",
+      "error_load_properties": "Error loading properties"
+    }
+  },
+  "tasks": {
+    "title": "Tasks by Property",
+    "filter": {
+      "label": "Filter:",
+      "all": "All Properties"
+    },
+    "add_button": "Add Task",
+    "table": {
+      "date": "Date",
+      "title": "Title",
+      "description": "Description",
+      "status": "Status",
+      "property": "Property",
+      "actions": "Action"
+    },
+    "status": {
+      "done": "Completed",
+      "pending": "In Progress",
+      "tooltip": {
+        "complete": "Click to mark as completed",
+        "revert": "Click to mark as in progress"
+      }
+    },
+    "actions": {
+      "edit": "Edit",
+      "delete": "Delete"
+    },
+    "modal": {
+      "add": "Add Task",
+      "edit": "Edit Task"
+    },
+    "form": {
+      "title": "Title",
+      "description": "Description",
+      "select_property": "Select a property",
+      "cancel": "Cancel",
+      "submit_add": "Submit",
+      "submit_edit": "Update"
+    },
+    "alerts": {
+      "load_error": "Error loading tasks",
+      "load_properties_error": "Error loading properties",
+      "confirm_create": "Confirm task creation?",
+      "confirm_update": "Confirm update?",
+      "confirm_delete": "Confirm deletion of this task?",
+      "success_create": "Task added",
+      "success_update": "Task updated",
+      "success_delete": "Task deleted",
+      "success_toggle": "Task status updated",
+      "delete_error": "Error while deleting",
+      "save_error": "Error while saving",
+      "toggle_error": "Error while updating status"
+    }
+  },
+  "stats": {
+    "title": "General Statistics",
+    "loading": "Loading...",
+    "filter": {
+      "all": "All Properties"
+    },
+    "cards": {
+      "reservations": "Reservations",
+      "tasks": {
+        "title": "Tasks",
+        "completed": "Completed",
+        "pending": "Pending",
+        "total": "Total"
+      },
+      "occupancy": "Occupancy Rate"
+    },
+    "pie": {
+      "title": "Task Distribution",
+      "pending": "Pending",
+      "completed": "Completed"
+    },
+    "line": {
+      "title": "Reservation Trends (30 days)"
+    },
+    "alerts": {
+      "load_error": "Error loading statistics",
+      "load_properties_error": "Error loading properties",
+      "evolution_error": "Error loading reservation trends"
+    }
+  },
+  "sidebar": {
+    "menu": "Menu",
+    "dashboard": "Dashboard",
+    "properties": "Properties",
+    "calendar": "Calendar",
+    "tasks": "Tasks",
+    "stats": "Statistics"
+  },
+  "login": {
+    "title": "Login",
+    "subtitle": "Log in to access your dashboard.",
+    "welcome": "Welcome to Lelyo",
+    "description": "Log in to manage your properties, tasks, and bookings.",
+    "email": "Email",
+    "password": "Password",
+    "submit": "Sign in",
+    "no_account": "No account yet?",
+    "create_account": "Create one",
+    "error": "Incorrect credentials",
+    "error_credentials": "Incorrect email or password.",
+    "success": "Login successful!"
+  },
+  "register": {
+    "title": "Sign Up",
+    "welcome": "Create a Lelyo Account",
+    "description": "Save time and stay in control of your rentals with our all-in-one platform.",
+    "subtitle": "Easily manage your properties from anywhere.",
+    "full_name": "Full name",
+    "phone": "Phone",
+    "email": "Email",
+    "password": "Password",
+    "confirm_password": "Confirm password",
+    "submit": "Create an account",
+    "already_account": "Already have an account?",
+    "login": "Sign in",
+    "success": "Registration successful!",
+    "errors": {
+      "password_mismatch": "Passwords do not match.",
+      "server": "Error during registration",
+      "generic": "An error occurred. Please try again."
+    }
+  }
+  }
+  
