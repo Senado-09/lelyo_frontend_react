@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
-import { Filter, PlusCircle, Trash2, Pencil, CheckCircle, Clock } from 'lucide-react'
+import {
+  Filter, PlusCircle, Trash2, Pencil, CheckCircle, Clock,
+} from 'lucide-react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
+import { api } from '../api'
 
-// Types
 type Task = {
   id: number
   title: string
@@ -30,16 +32,15 @@ const TasksPage = () => {
   const [date, setDate] = useState('')
   const [propertyId, setPropertyId] = useState<number | null>(null)
   const [modalOpen, setModalOpen] = useState(false)
-  const [editMode, setEditMode] = useState<null | number>(null)
+  const [editMode, setEditMode] = useState<number | null>(null)
 
   const fetchTasks = async () => {
-    const url = selectedProperty
-      ? `http://localhost:8000/tasks/by_property/${selectedProperty}`
-      : `http://localhost:8000/tasks`
+    const path = selectedProperty
+      ? `/tasks/by_property/${selectedProperty}`
+      : '/tasks'
 
     try {
-      const res = await fetch(url)
-      const data = await res.json()
+      const data = await api.get(path)
       setTasks(data)
     } catch {
       toast.error(t('tasks.alerts.load_error'))
@@ -48,8 +49,7 @@ const TasksPage = () => {
 
   const fetchProperties = async () => {
     try {
-      const res = await fetch('http://localhost:8000/properties')
-      const data = await res.json()
+      const data = await api.get('/properties')
       setProperties(data)
     } catch {
       toast.error(t('tasks.alerts.load_properties_error'))
@@ -69,26 +69,24 @@ const TasksPage = () => {
     const confirmed = confirm(editMode ? t('tasks.alerts.confirm_update') : t('tasks.alerts.confirm_create'))
     if (!confirmed) return
 
+    const payload = {
+      title,
+      description,
+      date,
+      status: 'à faire',
+      property_id: propertyId,
+    }
+
     try {
-      const method = editMode ? 'PUT' : 'POST'
-      const url = editMode
-        ? `http://localhost:8000/tasks/${editMode}`
-        : 'http://localhost:8000/tasks'
+      if (editMode) {
+        await api.put(`/tasks/${editMode}`, payload)
+        toast.success(t('tasks.alerts.success_update'))
+      } else {
+        await api.post('/tasks', payload)
+        toast.success(t('tasks.alerts.success_create'))
+      }
 
-      const res = await fetch(url, {
-        method,
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ title, description, date, status: 'à faire', property_id: propertyId }),
-      })
-
-      if (!res.ok) throw new Error()
-      toast.success(editMode ? t('tasks.alerts.success_update') : t('tasks.alerts.success_create'))
-      setTitle('')
-      setDescription('')
-      setDate('')
-      setPropertyId(null)
-      setEditMode(null)
-      setModalOpen(false)
+      resetForm()
       fetchTasks()
     } catch {
       toast.error(t('tasks.alerts.save_error'))
@@ -97,10 +95,7 @@ const TasksPage = () => {
 
   const toggleStatus = async (id: number) => {
     try {
-      const res = await fetch(`http://localhost:8000/tasks/${id}/toggle`, {
-        method: 'PATCH',
-      })
-      if (!res.ok) throw new Error()
+      await api.patch(`/tasks/${id}/toggle`, {})
       toast.success(t('tasks.alerts.success_toggle'))
       fetchTasks()
     } catch {
@@ -111,11 +106,9 @@ const TasksPage = () => {
   const deleteTask = async (id: number) => {
     const confirmed = confirm(t('tasks.alerts.confirm_delete'))
     if (!confirmed) return
+
     try {
-      const res = await fetch(`http://localhost:8000/tasks/${id}`, {
-        method: 'DELETE',
-      })
-      if (!res.ok) throw new Error()
+      await api.delete(`/tasks/${id}`)
       toast.success(t('tasks.alerts.success_delete'))
       fetchTasks()
     } catch {
@@ -132,10 +125,20 @@ const TasksPage = () => {
     setModalOpen(true)
   }
 
+  const resetForm = () => {
+    setModalOpen(false)
+    setEditMode(null)
+    setTitle('')
+    setDescription('')
+    setDate('')
+    setPropertyId(null)
+  }
+
   return (
     <div className="p-6 max-w-6xl mx-auto">
       <h1 className="text-2xl font-bold text-[#00B7A3] mb-4">{t('tasks.title')}</h1>
 
+      {/* Filtres & bouton */}
       <div className="grid md:grid-cols-2 gap-6 mb-6">
         <div className="bg-[#E6FFFC] p-4 rounded shadow flex items-center gap-2">
           <Filter className="text-[#00B7A3]" size={20} />
@@ -143,7 +146,9 @@ const TasksPage = () => {
           <select
             className="p-2 border rounded flex-1"
             value={selectedProperty ?? ''}
-            onChange={(e) => setSelectedProperty(e.target.value ? parseInt(e.target.value) : null)}
+            onChange={(e) =>
+              setSelectedProperty(e.target.value ? parseInt(e.target.value) : null)
+            }
           >
             <option value="">{t('tasks.filter.all')}</option>
             {properties.map((prop) => (
@@ -162,6 +167,7 @@ const TasksPage = () => {
         </div>
       </div>
 
+      {/* Tableau des tâches */}
       <div className="overflow-x-auto">
         <table className="w-full border">
           <thead>
@@ -278,14 +284,7 @@ const TasksPage = () => {
                 <div className="flex justify-end gap-2 pt-2">
                   <button
                     type="button"
-                    onClick={() => {
-                      setModalOpen(false)
-                      setEditMode(null)
-                      setTitle('')
-                      setDescription('')
-                      setDate('')
-                      setPropertyId(null)
-                    }}
+                    onClick={resetForm}
                     className="px-4 py-2 border rounded hover:bg-gray-100"
                   >
                     {t('tasks.form.cancel')}

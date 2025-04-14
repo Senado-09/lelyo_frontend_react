@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
-import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from 'recharts'
 import {
+  PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer,
   LineChart, Line, XAxis, YAxis, CartesianGrid,
 } from 'recharts'
 import { BarChart3, ClipboardCheck, TrendingUp } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
+import { api } from '../api'
 
 // Types
 type Stats = {
@@ -30,11 +31,8 @@ const StatsPage = () => {
 
   const fetchStats = async (propertyId?: number) => {
     try {
-      const url = propertyId
-        ? `http://localhost:8000/stats?property_id=${propertyId}`
-        : `http://localhost:8000/stats`
-      const res = await fetch(url)
-      const data = await res.json()
+      const query = propertyId ? `?property_id=${propertyId}` : ''
+      const data = await api.get(`/stats${query}`)
       setStats(data)
     } catch {
       toast.error(t('stats.alerts.load_error'))
@@ -43,11 +41,20 @@ const StatsPage = () => {
 
   const fetchProperties = async () => {
     try {
-      const res = await fetch('http://localhost:8000/properties')
-      const data = await res.json()
+      const data = await api.get('/properties')
       setProperties(data)
     } catch {
       toast.error(t('stats.alerts.load_properties_error'))
+    }
+  }
+
+  const fetchEvolution = async (propertyId?: number) => {
+    try {
+      const query = propertyId ? `?property_id=${propertyId}` : ''
+      const data = await api.get(`/stats/reservations_over_time${query}`)
+      setEvolutionData(data)
+    } catch {
+      toast.error(t('stats.alerts.evolution_error'))
     }
   }
 
@@ -55,19 +62,6 @@ const StatsPage = () => {
     fetchProperties()
     fetchStats()
   }, [])
-
-  const fetchEvolution = async (propertyId?: number) => {
-    try {
-      const url = propertyId
-        ? `http://localhost:8000/stats/reservations_over_time?property_id=${propertyId}`
-        : `http://localhost:8000/stats/reservations_over_time`
-      const res = await fetch(url)
-      const data = await res.json()
-      setEvolutionData(data)
-    } catch {
-      toast.error(t('stats.alerts.evolution_error'))
-    }
-  }
 
   useEffect(() => {
     fetchStats(selectedProperty || undefined)
@@ -98,11 +92,14 @@ const StatsPage = () => {
           </select>
         </div>
 
+        {/* 📊 Résumés statistiques */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="bg-[#E6FFFC] p-4 rounded shadow">
             <div className="flex items-center gap-2 mb-2">
               <BarChart3 className="text-[#00B7A3]" size={20} />
-              <h2 className="text-xl font-semibold text-[#0A0F1C]">{t('stats.cards.reservations')}</h2>
+              <h2 className="text-xl font-semibold text-[#0A0F1C]">
+                {t('stats.cards.reservations')}
+              </h2>
             </div>
             <p className="text-4xl font-bold text-[#00B7A3]">{stats.reservations}</p>
           </div>
@@ -110,23 +107,31 @@ const StatsPage = () => {
           <div className="bg-yellow-50 p-4 rounded shadow">
             <div className="flex items-center gap-2 mb-2">
               <ClipboardCheck className="text-yellow-700" size={20} />
-              <h2 className="text-xl font-semibold text-yellow-700">{t('stats.cards.tasks.title')}</h2>
+              <h2 className="text-xl font-semibold text-yellow-700">
+                {t('stats.cards.tasks.title')}
+              </h2>
             </div>
             <p>✅ {t('stats.cards.tasks.completed')} : {stats.taches_terminees}</p>
             <p>🕓 {t('stats.cards.tasks.pending')} : {stats.taches_a_faire}</p>
-            <p className="mt-2 font-bold">{t('stats.cards.tasks.total')} : {stats.taches_total}</p>
+            <p className="mt-2 font-bold">
+              {t('stats.cards.tasks.total')} : {stats.taches_total}
+            </p>
           </div>
 
           <div className="bg-green-50 p-4 rounded shadow">
             <div className="flex items-center gap-2 mb-2">
               <TrendingUp className="text-green-700" size={20} />
-              <h2 className="text-xl font-semibold text-green-700">{t('stats.cards.occupancy')}</h2>
+              <h2 className="text-xl font-semibold text-green-700">
+                {t('stats.cards.occupancy')}
+              </h2>
             </div>
-            <p className="text-3xl font-bold text-green-700">{stats.occupation_taux}</p>
+            <p className="text-3xl font-bold text-green-700">
+              {stats.occupation_taux}
+            </p>
           </div>
         </div>
 
-        {/* Task Pie Chart */}
+        {/* 🥧 Pie chart */}
         <div className="mt-10 bg-white p-4 rounded shadow">
           <h2 className="text-xl font-semibold mb-4 text-[#0A0F1C]">{t('stats.pie.title')}</h2>
           <div className="h-64">
@@ -154,7 +159,7 @@ const StatsPage = () => {
           </div>
         </div>
 
-        {/* Reservations Over Time Chart */}
+        {/* 📈 Line chart */}
         <div className="mt-10 bg-white p-4 rounded shadow">
           <h2 className="text-xl font-semibold mb-4 text-[#0A0F1C]">{t('stats.line.title')}</h2>
           <div className="h-64">

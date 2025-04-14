@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import { Plus } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
+import { api } from '../api'
 
 const AddProperty = () => {
   const { t } = useTranslation()
@@ -30,11 +31,7 @@ const AddProperty = () => {
       const formData = new FormData()
       formData.append('file', image)
       try {
-        const res = await fetch('http://localhost:8000/upload', {
-          method: 'POST',
-          body: formData,
-        })
-        const data = await res.json()
+        const data = await api.upload('/upload', formData)
         imageUrl = data.url
       } catch {
         toast.error(t('addProperty.errors.upload'))
@@ -43,13 +40,12 @@ const AddProperty = () => {
     }
 
     try {
-      const res = await fetch('http://localhost:8000/properties', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, address, description, image_url: imageUrl }),
+      await api.post('/properties', {
+        name,
+        address,
+        description,
+        image_url: imageUrl,
       })
-
-      if (!res.ok) throw new Error()
 
       toast.success(t('addProperty.success'))
       setName('')

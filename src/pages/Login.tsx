@@ -3,15 +3,16 @@ import { useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
 import { motion } from 'framer-motion'
 import logo from '../assets/logo.jpg'
-import { Eye, EyeOff } from "lucide-react"
+import { Eye, EyeOff } from 'lucide-react'
 import LoadingButton from '../components/LoadingButton'
 import { useTranslation } from 'react-i18next'
 import i18n from '../i18n'
+import { api } from '../api'
 
 const Login = () => {
   const { t } = useTranslation()
   const [email, setEmail] = useState('')
-  const [password, setPassword] = useState("")
+  const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
@@ -23,26 +24,20 @@ const Login = () => {
     setIsLoading(true)
 
     try {
-      const response = await fetch('http://localhost:8000/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
-      })
+      const data = await api.post('/login', { email, password })
 
-      if (!response.ok) {
-        toast.error(t('login.error'))
-        throw new Error('Login failed')
-      }
-
-      const data = await response.json()
       if (data.access_token) {
         toast.success(t('login.success'))
         localStorage.setItem('auth_token', data.access_token)
         navigate('/')
-      }      
+      } else {
+        toast.error(t('login.error'))
+        setError(t('login.error_credentials'))
+      }
     } catch (err) {
+      toast.error(t('login.error'))
       setError(t('login.error_credentials'))
-    }finally {
+    } finally {
       setIsLoading(false)
     }
   }
@@ -53,18 +48,14 @@ const Login = () => {
       <div className="hidden md:flex w-1/2 bg-[#0A0F1C] text-white flex-col justify-center items-center p-10">
         <img src={logo} alt="Logo" className="w-24 h-24 mb-4" />
         <h2 className="text-3xl font-semibold mb-2">{t('login.welcome')}</h2>
-        <p className="text-lg text-center max-w-md">
-          {t('login.description')}
-        </p>
+        <p className="text-lg text-center max-w-md">{t('login.description')}</p>
       </div>
 
       {/* Mobile Header */}
       <div className="md:hidden flex flex-col items-center p-6">
         <img src={logo} alt="Logo" className="w-20 h-20 mb-3" />
         <h2 className="text-xl font-semibold text-[#0A0F1C] mb-1">{t('login.title')}</h2>
-        <p className="text-center text-sm text-gray-600 mb-4">
-          {t('login.subtitle')}
-        </p>
+        <p className="text-center text-sm text-gray-600 mb-4">{t('login.subtitle')}</p>
       </div>
 
       {/* Formulaire avec animation */}
@@ -103,7 +94,7 @@ const Login = () => {
             />
             <div className="relative">
               <input
-                type={showPassword ? "text" : "password"}
+                type={showPassword ? 'text' : 'password'}
                 placeholder={t('login.password') || 'Mot de passe'}
                 className="w-full p-3 pr-10 border rounded outline-none focus:ring-2 focus:ring-[#00B7A3]"
                 value={password}

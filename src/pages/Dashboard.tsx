@@ -5,6 +5,7 @@ import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer
 } from 'recharts'
 import { useTranslation } from 'react-i18next'
+import { api } from '../api'
 
 type DashboardData = {
   total_properties: number
@@ -14,6 +15,7 @@ type DashboardData = {
 
 const Dashboard = () => {
   const { t } = useTranslation()
+
   const [data, setData] = useState<DashboardData | null>(null)
   const [weekData, setWeekData] = useState<{ date: string; count: number }[]>([])
   const [alerts, setAlerts] = useState<{
@@ -29,8 +31,7 @@ const Dashboard = () => {
 
   const fetchData = async () => {
     try {
-      const res = await fetch('http://localhost:8000/dashboard')
-      const json = await res.json()
+      const json = await api.get('/dashboard')
       setData(json)
     } catch {
       toast.error(t('dashboard.errors.load_dashboard'))
@@ -39,9 +40,8 @@ const Dashboard = () => {
 
   const fetchAlerts = async () => {
     try {
-      const res = await fetch('http://localhost:8000/dashboard/alerts')
-      const data = await res.json()
-      setAlerts(data)
+      const json = await api.get('/dashboard/alerts')
+      setAlerts(json)
     } catch {
       toast.error(t('dashboard.errors.load_alerts'))
     }
@@ -49,9 +49,8 @@ const Dashboard = () => {
 
   const fetchWeeklyReservations = async () => {
     try {
-      const res = await fetch('http://localhost:8000/dashboard/reservations_week')
-      const data = await res.json()
-      setWeekData(data)
+      const json = await api.get('/dashboard/reservations_week')
+      setWeekData(json)
     } catch {
       toast.error(t('dashboard.errors.load_week'))
     }

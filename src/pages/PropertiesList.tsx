@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { Trash2 } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
+import { api } from '../api'
 
 type Property = {
   id: number
@@ -17,8 +18,7 @@ const PropertiesList = () => {
 
   const fetchProperties = async () => {
     try {
-      const res = await fetch('http://localhost:8000/properties')
-      const data = await res.json()
+      const data = await api.get('/properties')
       setProperties(data)
     } catch (err) {
       toast.error(t('propertiesList.errors.fetch'))
@@ -26,14 +26,11 @@ const PropertiesList = () => {
   }
 
   const handleDelete = async (id: number, name: string) => {
-    const confirm = window.confirm(t('propertiesList.confirmDelete', { name }))
-    if (!confirm) return
+    const confirmDelete = window.confirm(t('propertiesList.confirmDelete', { name }))
+    if (!confirmDelete) return
 
     try {
-      const res = await fetch(`http://localhost:8000/properties/${id}`, {
-        method: 'DELETE',
-      })
-      if (!res.ok) throw new Error()
+      await api.delete(`/properties/${id}`)
       toast.success(t('propertiesList.successDelete'))
       setProperties(properties.filter((p) => p.id !== id))
     } catch {
