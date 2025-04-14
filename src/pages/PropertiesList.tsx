@@ -4,6 +4,8 @@ import { Trash2 } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { api } from '../api'
 
+const API_BASE_URL = import.meta.env.VITE_API_URL
+
 type Property = {
   id: number
   name: string
@@ -51,7 +53,11 @@ const PropertiesList = () => {
         >
           {prop.image_url && (
             <img
-              src={prop.image_url}
+              src={
+                prop.image_url.startsWith('http')
+                  ? prop.image_url
+                  : `${API_BASE_URL}${prop.image_url}`
+              }
               alt={prop.name}
               className="w-full h-40 object-cover"
             />
