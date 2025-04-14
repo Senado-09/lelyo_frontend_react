@@ -34,7 +34,7 @@ const PropertiesList = () => {
     try {
       await api.delete(`/properties/${id}`)
       toast.success(t('propertiesList.successDelete'))
-      setProperties(properties.filter((p) => p.id !== id))
+      setProperties(prev => prev.filter((p) => p.id !== id))
     } catch {
       toast.error(t('propertiesList.errors.delete'))
     }
@@ -56,7 +56,7 @@ const PropertiesList = () => {
               src={
                 prop.image_url.startsWith('http')
                   ? prop.image_url
-                  : `${API_BASE_URL}${prop.image_url}`
+                  : `${API_BASE_URL.replace(/\/$/, '')}/${prop.image_url.replace(/^\//, '')}`
               }
               alt={prop.name}
               className="w-full h-40 object-cover"
